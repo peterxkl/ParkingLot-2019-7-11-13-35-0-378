@@ -66,7 +66,7 @@ public class Story1Test {
 
 
         //then
-        Assertions.assertThrows(UsedTicketException.class, ()->boy.fetching(ticket),"Used parking ticket.");
+        Assertions.assertThrows(UsedTicketException.class, ()->boy.fetching(ticket),"Unrecognized parking ticket.");
     }
     @Test
     public void should_canot_park_car_when_no_position() throws NoPositionException{
