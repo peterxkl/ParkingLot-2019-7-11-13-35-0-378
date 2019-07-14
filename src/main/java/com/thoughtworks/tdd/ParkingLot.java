@@ -17,19 +17,24 @@ public class ParkingLot {
         }
     }
 
-    public Car fetch(Ticket ticket) throws WrongTicketException , UsedTicketException {
-        if (parkingCarTicket.containsKey(ticket)) {
-            if (parkingCarTicket.get(ticket) != null) {
-                Car car = parkingCarTicket.get(ticket);
-                parkingCarTicket.put(ticket, null);
-                parkingCapacity+=1;
-                return car;
+    public Car fetch(Ticket ticket) throws WrongTicketException , UsedTicketException , NullTicketException{
+        if (ticket!=null) {
+            if (parkingCarTicket.containsKey(ticket)) {
+                if (parkingCarTicket.get(ticket) != null) {
+                    Car car = parkingCarTicket.get(ticket);
+                    parkingCarTicket.put(ticket, null);
+                    parkingCapacity+=1;
+                    return car;
+                } else {
+                    throw new UsedTicketException("Used parking ticket.");
+                }
             } else {
-                throw new UsedTicketException("Used parking ticket.");
+                throw new WrongTicketException("Wrong parking ticket.");
             }
-        } else {
-            throw new WrongTicketException("Wrong parking ticket.");
+        }else{
+            throw new NullTicketException("Please provide your parking ticket.");
         }
+
 
     }
 }
