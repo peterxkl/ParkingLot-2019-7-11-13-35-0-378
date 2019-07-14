@@ -14,17 +14,20 @@ public class ParkingBoy {
                 return ticket;
             }
         }
-        return null;
+        throw new NoPositionException("No enough position.");
     }
 
     public Car fetching(Ticket ticket) throws WrongTicketException , UsedTicketException , NullTicketException{
-        for(ParkingLot parkingLot:parkingLots){
-             if(parkingLot.getParkingCarTicket().containsKey(ticket)){
-                 Car car = parkingLot.fetch(ticket);
-                 return  car;
-             }
+        if(ticket != null){
+            for(ParkingLot parkingLot:parkingLots){
+                if(parkingLot.getParkingCarTicket().containsKey(ticket)){
+                    Car car = parkingLot.fetch(ticket);
+                    return  car;
+                }
+            }
+            throw new WrongTicketException("Wrong parking ticket.");
+        }else{
+            throw new NullTicketException("Please provide your parking ticket.");
         }
-
-        return null;
     }
 }
