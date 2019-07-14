@@ -196,4 +196,46 @@ public class Story1Test {
         assertSame(2, parkingLot1.getParkingCapacity());
     }
 
+    @Test
+    public void should_return_parkingBoys_when_manager_add_parkingBoy() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(3);
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ArrayList<ParkingLot>parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot);
+        parkingLots.add(parkingLot1);
+        ServiceManager manager = new ServiceManager(parkingLots);
+        ParkingBoy parkingBoy =new ParkingBoy(manager.getParkingLots());
+        //when
+        int x = manager.getParkingBoys().size();
+        manager.addParkingBoys(parkingBoy);
+        //then
+        assertSame(x+1,manager.getParkingBoys().size());
+    }
+
+    @Test
+    public void manage_park_car_when_not_only_one_parkingLot() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException{
+        //given
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Car car3 = new Car();
+        Car car4 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(3);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        ParkingBoy boy = new ParkingBoy(parkingLots);
+
+
+        //when
+        boy.parking(car1);
+        boy.parking(car2);
+        boy.parking(car3);
+        Ticket ticket = boy.parking(car4);
+        Car car = boy.fetching(ticket);
+
+        //then
+        assertSame(car,car4);
+    }
 }
