@@ -9,13 +9,23 @@ public class ParkingBoy {
         this.parkingLots = parkingLots;
     }
 
-    public Ticket parking(Car car) throws NoPositionException{
+
+    public Ticket smartParking(Car car) throws NoPositionException{
         List<Integer> list = parkingLots.stream().map(x->x.getParkingCapacity()).collect(Collectors.toList());
         int max = Collections.max(list);
         for(ParkingLot parkingLot:parkingLots){
             if(parkingLot.getParkingCapacity() == max){
                 Ticket ticket = parkingLot.park(car);
                 return ticket;
+            }
+        }
+        throw new NoPositionException("No enough position.");
+    }
+    public Ticket parking(Car car) throws NoPositionException{
+        for (ParkingLot parkingLot : parkingLots){
+            if (parkingLot.getParkingCapacity()>0){
+                Ticket ticket = parkingLot.park(car);
+                return ticket ;
             }
         }
         throw new NoPositionException("No enough position.");

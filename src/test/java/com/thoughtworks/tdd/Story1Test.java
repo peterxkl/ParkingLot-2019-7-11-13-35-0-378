@@ -162,8 +162,8 @@ public class Story1Test {
 
 
         //when
-        boy.parking(car1);
-        boy.parking(car2);
+        boy.smartParking(car1);
+        boy.smartParking(car2);
 
 
         //then
