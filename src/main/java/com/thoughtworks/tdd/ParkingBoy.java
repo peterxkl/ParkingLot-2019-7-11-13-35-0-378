@@ -11,7 +11,7 @@ public class ParkingBoy {
         return ticket;
     }
 
-    public Car fetching(Ticket ticket) {
+    public Car fetching(Ticket ticket) throws WrongTicketException {
         Car car = parkingLot.fetch(ticket);
         return car;
     }
