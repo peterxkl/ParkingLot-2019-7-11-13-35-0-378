@@ -100,7 +100,7 @@ public class Story1Test {
         Ticket ticket9 = boy.parking(car9);
 
         //then
-        Assertions.assertThrows(NoPositionException.class, ()->boy.parking(car9),"No enough position.");
+        Assertions.assertThrows(NoPositionException.class, ()->boy.parking(car9),"Not enough position.");
     }
 
     @Test
