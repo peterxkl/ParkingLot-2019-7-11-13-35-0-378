@@ -4,7 +4,17 @@ import java.util.Map;
 public class ParkingLot {
 
     private Map<Ticket,Car> parkingCarTicket = new HashMap();
-    private int parkingCapacity = 3;
+    private int parkingCapacity;//实时容量
+    private int capacity;//容量，不变值
+
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
+        this.parkingCapacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
 
     public Map<Ticket, Car> getParkingCarTicket() {
         return parkingCarTicket;

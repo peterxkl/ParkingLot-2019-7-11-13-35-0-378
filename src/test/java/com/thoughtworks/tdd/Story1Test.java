@@ -11,7 +11,7 @@ public class Story1Test {
     @Test
     public void should_return_ticket_when__park_car_and_return_car_when_fetch() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException {
         //given
-        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot parkingLot = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         ParkingBoy boy = new ParkingBoy(parkingLots);
@@ -27,7 +27,7 @@ public class Story1Test {
     @Test
     public void should_return_correspond_car_when_fetch_mutiple_cars() throws WrongTicketException , UsedTicketException , NoPositionException , NullTicketException{
         //given
-        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot parkingLot = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         ParkingBoy boy = new ParkingBoy(parkingLots);
@@ -47,7 +47,7 @@ public class Story1Test {
     @Test
     public void should_not_fetch_car_when_ticket_is_fake() throws NoPositionException{
         //given
-        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot parkingLot = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         ParkingBoy boy = new ParkingBoy(parkingLots);
@@ -64,7 +64,7 @@ public class Story1Test {
     @Test
     public void should_not_fetch_car_when_ticket_is_used() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException {
         //given
-        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot parkingLot = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         ParkingBoy boy = new ParkingBoy(parkingLots);
@@ -82,8 +82,8 @@ public class Story1Test {
     @Test
     public void should_canot_park_car_when_no_position() throws NoPositionException{
         //given
-        ParkingLot parkingLot1 = new ParkingLot();
-        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
@@ -111,7 +111,7 @@ public class Story1Test {
     @Test
     public void fetch_car_when_not_provide_ticket() throws  NoPositionException{
         //given
-        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot parkingLot = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         ParkingBoy boy = new ParkingBoy(parkingLots);
@@ -130,8 +130,8 @@ public class Story1Test {
         Car car2 = new Car();
         Car car3 = new Car();
         Car car4 = new Car();
-        ParkingLot parkingLot1 = new ParkingLot();
-        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
@@ -153,8 +153,8 @@ public class Story1Test {
         //given
         Car car1 = new Car();
         Car car2 = new Car();
-        ParkingLot parkingLot1 = new ParkingLot();
-        ParkingLot parkingLot2 = new ParkingLot();
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(3);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
@@ -168,6 +168,32 @@ public class Story1Test {
 
         //then
         assertSame(2,parkingLot2.getParkingCapacity());//此时每个停车场的最大容量设置为3
+    }
+
+    @Test
+    public void super_smart_park_car_when_not_one_parkingLot() throws NoPositionException {
+        //given
+        Car car1 = new Car();
+        Car car2 = new Car();
+//        Car car3 = new Car();
+//        Car car4 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(5);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        ParkingBoy boy = new ParkingBoy(parkingLots);
+
+
+        //when
+        boy.superSmartParking(car1);
+        boy.superSmartParking(car2);
+//        boy.superSmartParking(car3);
+//        boy.superSmartParking(car4);
+
+
+        //then
+        assertSame(2, parkingLot1.getParkingCapacity());
     }
 
 }
