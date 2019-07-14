@@ -204,17 +204,20 @@ public class Story1Test {
         ArrayList<ParkingLot>parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         parkingLots.add(parkingLot1);
-        ServiceManager manager = new ServiceManager(parkingLots);
-        ParkingBoy parkingBoy =new ParkingBoy(manager.getParkingLots());
+        ParkingBoy parkingBoy =new ParkingBoy(parkingLots);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(parkingBoy);
+        ServiceManager manager = new ServiceManager(parkingBoys,parkingLots);
+        ParkingBoy parkingBoy1 =new ParkingBoy(parkingLots);
         //when
         int x = manager.getParkingBoys().size();
-        manager.addParkingBoys(parkingBoy);
+        manager.addParkingBoys(parkingBoy1);
         //then
         assertSame(x+1,manager.getParkingBoys().size());
     }
 
     @Test
-    public void manage_park_car_when_not_only_one_parkingLot() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException{
+    public void park_car_when_not_only_one_parkingLot() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException{
         //given
         Car car1 = new Car();
         Car car2 = new Car();
@@ -226,14 +229,17 @@ public class Story1Test {
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
         ParkingBoy boy = new ParkingBoy(parkingLots);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(boy);
+        ServiceManager manager = new ServiceManager(parkingBoys,parkingLots);
 
 
         //when
-        boy.parking(car1);
-        boy.parking(car2);
-        boy.parking(car3);
-        Ticket ticket = boy.parking(car4);
-        Car car = boy.fetching(ticket);
+        manager.parking(car1);
+        manager.parking(car2);
+        manager.parking(car3);
+        Ticket ticket = manager.parking(car4);
+        Car car = manager.fetching(ticket);
 
         //then
         assertSame(car,car4);
