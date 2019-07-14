@@ -4,7 +4,15 @@ import java.util.Map;
 public class ParkingLot {
 
     private Map<Ticket,Car> parkingCarTicket = new HashMap();
-    private int parkingCapacity = 10;
+    private int parkingCapacity = 3;
+
+    public Map<Ticket, Car> getParkingCarTicket() {
+        return parkingCarTicket;
+    }
+
+    public int getParkingCapacity() {
+        return parkingCapacity;
+    }
 
     public Ticket park(Car car) throws NoPositionException{
         if(parkingCapacity<=0){

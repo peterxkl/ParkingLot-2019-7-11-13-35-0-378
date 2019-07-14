@@ -1,18 +1,30 @@
+import java.util.List;
 
 public class ParkingBoy {
-    private ParkingLot parkingLot;
+    private List<ParkingLot> parkingLots;
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public ParkingBoy(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
     }
 
     public Ticket parking(Car car) throws NoPositionException{
-        Ticket ticket = parkingLot.park(car);
-        return ticket;
+        for(ParkingLot parkingLot:parkingLots){
+            if(parkingLot.getParkingCapacity()>0){
+                Ticket ticket = parkingLot.park(car);
+                return ticket;
+            }
+        }
+        return null;
     }
 
     public Car fetching(Ticket ticket) throws WrongTicketException , UsedTicketException , NullTicketException{
-        Car car = parkingLot.fetch(ticket);
-        return car;
+        for(ParkingLot parkingLot:parkingLots){
+             if(parkingLot.getParkingCarTicket().containsKey(ticket)){
+                 Car car = parkingLot.fetch(ticket);
+                 return  car;
+             }
+        }
+
+        return null;
     }
 }
