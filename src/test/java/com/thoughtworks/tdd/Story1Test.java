@@ -50,7 +50,7 @@ public class Story1Test {
         Ticket ticket1 = new Ticket();
         //Car car_back = boy.fetching(ticket);
         //then
-        Assertions.assertThrows(WrongTicketException.class, ()->boy.fetching(ticket1),"Wrong parking ticket.");
+        Assertions.assertThrows(WrongTicketException.class, ()->boy.fetching(ticket1),"Unrecognized parking ticket.");
     }
     @Test
     public void should_not_fetch_car_when_ticket_is_used() throws  WrongTicketException , UsedTicketException , NoPositionException{
