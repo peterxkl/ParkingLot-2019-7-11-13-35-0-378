@@ -6,7 +6,7 @@ public class ParkingBoy {
         this.parkingLot = parkingLot;
     }
 
-    public Ticket parking(Car car) {
+    public Ticket parking(Car car) throws NoPositionException{
         Ticket ticket = parkingLot.park(car);
         return ticket;
     }

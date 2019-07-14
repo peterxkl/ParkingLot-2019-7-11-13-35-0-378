@@ -4,12 +4,17 @@ import java.util.Map;
 public class ParkingLot {
 
     private Map<Ticket,Car> parkingCarTicket = new HashMap();
+    private int parkingCapacity = 10;
 
-
-    public Ticket park(Car car) {
-        Ticket ticket = new Ticket();
-        parkingCarTicket.put(ticket,car);
-        return ticket;
+    public Ticket park(Car car) throws NoPositionException{
+        if(parkingCapacity<=0){
+            throw new NoPositionException("No enough position.");
+        }else{
+            Ticket ticket = new Ticket();
+            parkingCarTicket.put(ticket,car);
+            parkingCapacity-=1;
+            return ticket;
+        }
     }
 
     public Car fetch(Ticket ticket) throws WrongTicketException , UsedTicketException {
@@ -17,6 +22,7 @@ public class ParkingLot {
             if (parkingCarTicket.get(ticket) != null) {
                 Car car = parkingCarTicket.get(ticket);
                 parkingCarTicket.put(ticket, null);
+                parkingCapacity+=1;
                 return car;
             } else {
                 throw new UsedTicketException("Used parking ticket.");
