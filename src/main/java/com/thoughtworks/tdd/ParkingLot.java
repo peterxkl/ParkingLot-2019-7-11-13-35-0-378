@@ -12,12 +12,17 @@ public class ParkingLot {
         return ticket;
     }
 
-    public Car fetch(Ticket ticket) throws WrongTicketException {
-        Car car = parkingCarTicket.get(ticket);
-        if(car!=null){
-            return car;
-        }else{
-            throw new WrongTicketException("wrong parking ticket.");
+    public Car fetch(Ticket ticket) throws WrongTicketException , UsedTicketException {
+        if (parkingCarTicket.containsKey(ticket)) {
+            if (parkingCarTicket.get(ticket) != null) {
+                Car car = parkingCarTicket.get(ticket);
+                parkingCarTicket.put(ticket, null);
+                return car;
+            } else {
+                throw new UsedTicketException("Used parking ticket.");
+            }
+        } else {
+            throw new WrongTicketException("Wrong parking ticket.");
         }
 
     }
