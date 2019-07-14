@@ -217,7 +217,7 @@ public class Story1Test {
     }
 
     @Test
-    public void park_car_when_not_only_one_parkingLot() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException{
+    public void manage_park_car_when_not_only_one_parkingLot() throws  WrongTicketException , UsedTicketException , NoPositionException , NullTicketException{
         //given
         Car car1 = new Car();
         Car car2 = new Car();
@@ -243,5 +243,26 @@ public class Story1Test {
 
         //then
         assertSame(car,car4);
+    }
+
+    @Test
+    public void should_return_wrong_message_when_parkingBoy_failed_parking_car()  throws NoPositionException{
+        //given
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(3);
+        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        ParkingBoy boy = new ParkingBoy(parkingLots);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(boy);
+        ServiceManager manager = new ServiceManager(parkingBoys,parkingLots);
+        //when
+        ParkingBoy boy1 = manager.getParkingBoys().get(0);
+        Car car1 = new Car();
+        Ticket ticket = boy1.parking(car1);
+        //then
+
+
     }
 }
