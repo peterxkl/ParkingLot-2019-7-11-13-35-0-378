@@ -1,46 +1,48 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class ServiceManager  {
+public class ServiceManager  implements ParkiAndFetch{
     ArrayList<ParkingBoy> parkingBoys;
-    ArrayList<ParkingLot> parkingLots;
+    private ParkingLot parkingLot;
 
-
-    public ServiceManager(ArrayList<ParkingBoy> parkingBoys, ArrayList<ParkingLot> parkingLots) {
+    public ServiceManager(ArrayList<ParkingBoy> parkingBoys, ParkingLot parkingLot) {
         this.parkingBoys = parkingBoys;
-        this.parkingLots = parkingLots;
+        this.parkingLot = parkingLot;
     }
 
     public ArrayList<ParkingBoy> getParkingBoys() {
         return parkingBoys;
     }
 
-    public ArrayList<ParkingLot> getParkingLots() {
-        return parkingLots;
+    public ParkingLot getParkingLot() {
+        return parkingLot;
     }
 
     public void addParkingBoys(ParkingBoy parkingBoy) {
         parkingBoys.add(parkingBoy);
     }
     public Ticket parking(Car car) throws NoPositionException{
-        for (ParkingLot parkingLot : parkingLots){
+
             if (parkingLot.getParkingCapacity()>0){
                 Ticket ticket = parkingLot.park(car);
                 return ticket ;
             }
+            throw new NoPositionException("No enough position.");
+    }
+    public Ticket parkingByParkingBoy(ParkingBoy parkingBoy,Car car) throws NoPositionException, IllegalStateException {
+        if (parkingBoys.contains(parkingBoy)) {
+            return parkingBoy.parking(car);
+        } else {
+            throw new IllegalStateException("No boy is working.");
         }
-        throw new NoPositionException("No enough position.");
     }
 
     public Car fetching(Ticket ticket) throws WrongTicketException , UsedTicketException , NullTicketException{
         if(ticket != null){
-            for(ParkingLot parkingLot:parkingLots){
                 if(parkingLot.getParkingCarTicket().containsKey(ticket)){
                     Car car = parkingLot.fetch(ticket);
                     return  car;
                 }
-            }
-            throw new WrongTicketException("Wrong parking ticket.");
+                throw new WrongTicketException("Wrong parking ticket.");
         }else{
             throw new NullTicketException("Please provide your parking ticket.");
         }
